@@ -6,23 +6,41 @@ function getName(){
 	if(isset($_GET['name'])){
 		echo "<p>Hello, " . $_GET['name'] . "</p>";
 	}
-$pass = "placeholder";
-$conpass = "PlaceHolder";
-function checkPass(){
-	similar_text($pass, $conpass, $perc);
-	if($perc < 100)
-        echo "Passwords do not match";
+function checkPasswords(){
+	if(isset($_POST['password']) && isset($_POST['confirm'])){
+		if($_POST['password'] == $_POST['confirm']){
+			echo "<br>Passwords Matched!<br>";
+		}
+		else{
+			echo "<br>Passwords didn't match!<br>";
+		}
 	}
 }
 ?>
 <html>
-<head></head>
+<head>
+<script>
+function validate(){
+	var form = document.forms[0];
+	var password = form.password.value;
+	var conf = form.confirm.value;
+	console.log(password);
+	console.log(conf);
+	if(password == conf){
+		return true;
+	}
+	
+	alert("Passwords don't match");
+	return false;
+	
+}
+</script>
+</head>
 <body><?php getName();?>
-<body><?php checkPass();?>
-<form method="GET" action="#">
+<form method="POST" action="#" onsubmit="return validate();">
 <input name="name" type="text" placeholder="Enter your name"/>
-<input name="pass" type="text" placeholder="Enter your password"/>
-<input name="conpass" type="text" placeholder="Confirm your password"/>
+<input name="password" type="password"/>
+<input name="confirm" type="password"/>
 <!-- ensure passwords match before sending the form
 		AND/OR
 	validate password matches confirmation on php side
@@ -35,8 +53,8 @@ function checkPass(){
 </html>
 
 <?php
-if(isset($_GET)){
-	echo "<br><pre>" . var_export($_GET, true) . "</pre><br>";
+if(isset($_POST)){
+	echo "<br><pre>" . var_export($_POST, true) . "</pre><br>";
 }
 ?>
 
