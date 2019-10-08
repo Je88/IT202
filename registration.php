@@ -12,6 +12,14 @@ function checkPasswords(){
 			echo "<br>Passwords didn't match!<br>";
 		}
 	}
+	
+	
+	if($_POST['Select'] !='select')){
+		echo "<br>Nice Choice<br>";
+	} 
+	else{
+		echo "<br>Please Select a World!<br>"
+	}
 }
 ?>
 <html>
@@ -55,6 +63,7 @@ function validate(){
 	First element should be "Select One", and it should require that
 	some other value is selected in order to proceed
 	*/
+	
 	return succeeded;	
 }
 </script>
@@ -76,6 +85,13 @@ input { border: 1px solid black; }
 <input type="password" name="confirm" placeholder="Re-Enter password"/>
 <span style="display:none;" id="validation.password"></span>
 
+<select name="Select">
+	<option value="select">Select One</option>
+	<option value="first">World1</option>
+	<option value="second">World2</option> 
+	<option value="third">World3</option>
+</select>
+ 
 <!-- Add dropdown element (something specific to your project) -->
 <input type="submit" value="Try it"/>
 </form>
