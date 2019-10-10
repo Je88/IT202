@@ -26,8 +26,8 @@ function myValidation(inputEle, checkValue){
 <body>
 <form>
 <input type="text" name="test" placeholder="Trying it out"
-	onchange="myValidation(this,'hi');"/>
-<input type="number" name="number" onchange="console.log('onchange'),myvalidation(this,15);"
+	onchange="myValidation(this, 'hi');"/>
+<input type="number" name="number" onchange="console.log('onchange'),myValidation(this,15);"
 onblur="console.log('blur');"
 oninput="console.log('oninput');"
 
