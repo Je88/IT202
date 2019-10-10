@@ -63,7 +63,12 @@ function validate(){
 	First element should be "Select One", and it should require that
 	some other value is selected in order to proceed
 	*/
-	
+	var sel = form.Select;
+	if(sel.selectedIndex == 0){
+		alert("Pick a world");
+		succeeded = false;
+	}
+	console.log(sel.options[sel.selectedIndex].value);
 	return succeeded;	
 }
 </script>
