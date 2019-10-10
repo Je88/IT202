@@ -7,7 +7,7 @@ function myValidation(inputEle, checkValue){
 	let vele = document.getElementById(vid);
 	let value = inputEle.value;
 	if(value == checkValue){
-		if(vel){
+		if(vele){
 			vele.remove();
 		}
 	}
@@ -15,18 +15,17 @@ function myValidation(inputEle, checkValue){
 		if(!vele){
 			vele = document.createElement("span");
 			vele.id = vid;
-			document.body.appentChild(vele);		
+			document.body.appendChild(vele);		
 		}
 		vele.innerText = name + "has an invalid value";
 	}
-	return false;
 }
 </script>
 </head>
 
 <body>
-<form onsubmit="return false;">
-<input type="text" name="text" placeholder="Trying it out"
+<form>
+<input type="text" name="test" placeholder="Trying it out"
 	onchange="myValidation(this,'hi');"/>
 <input type="number" name="number" onchange="console.log('onchange'),myvalidation(this,15);"
 onblur="console.log('blur');"
