@@ -63,7 +63,7 @@ function validate(){
 	First element should be "Select One", and it should require that
 	some other value is selected in order to proceed
 	*/
-	var sel = form.Select;
+	var sel = form.dd;
 	if(sel.selectedIndex == 0){
 		alert("Pick a world");
 		succeeded = false;
@@ -89,15 +89,14 @@ input { border: 1px solid black; }
 <input type="password" name="password" placeholder="Enter password"/>
 <input type="password" name="confirm" placeholder="Re-Enter password"/>
 <span style="display:none;" id="validation.password"></span>
-
-<select name="Select">
-	<option value="select">Select One</option>
-	<option value="first">World1</option>
-	<option value="second">World2</option> 
-	<option value="third">World3</option>
-</select>
  
 <!-- Add dropdown element (something specific to your project) -->
+<select name="dd">
+        <option value="0">>Select One</option>
+        <option value="1">World1</option>
+        <option value="2">World2</option>
+        <option value="3">World3</option>
+</select>
 <input type="submit" value="Try it"/>
 </form>
 </div>
