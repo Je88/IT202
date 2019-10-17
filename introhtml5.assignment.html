@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css"> 
+        .home { 
+            width: 130px; 
+            height: 130px; 
+            border-radius: 50%; 
+            float: left; 
+            margin-right: 50px; 
+        } 
+          
+        .about { 
+            width: 130px; 
+            height: 130px; 
+            border-radius: 0%; 
+            float: left; 
+            margin-right: 50px; 
+        } 
+          
+        #home { 
+            background-color: #196F3D; 
+        }  
+          
+        #about { 
+            background-color: #58D68D; 
+        } 
+    </style> 
 <script>
 	function queryParam(){
 		var params = new URLSearchParams(location.search);
 		if(params.has('page')){
 			var page = params.get('page');
-			var ele = document.getElementById(page);
+			var ele = document.getElementByClassName(page);
 			if(ele){
 				let home = document.getElementById('home');
 				let about = document.getElementById('about');
@@ -19,6 +44,17 @@
 			let home = document.getElementById('home');
 			home.style.display = "block";
 		}
+	 document.getElementById("home").onclick = function() { 
+  
+            document.getElementById("home").style.display = "none"; 
+  
+        } 
+  
+        document.getElementById("about").onclick = function() { 
+  
+            document.getElementById("about").style.display = "none"; 
+  
+        } 
 	}
 </script>
 </head>
