@@ -6,7 +6,7 @@
 
 var canvas;
 var context;
-var score;
+var score = 0; //Your Score
 var speed;
 var sidelength;
 var targetX = 0;
@@ -17,25 +17,25 @@ var id = null;
 var drawables = [];
 
 var keys = {
-	down = false;
-	up = false;
-	right = false;
-	left = false;
+	down: false;
+	up: false;
+	right: false;
+	left: false;
 };
 
 // Get a reference to the canvas DOM element
-var canvas = document.getElementById('canvas');
+canvas = document.getElementById('canvas');
 // Get the canvas drawing context
-var context = canvas.getContext('2d');
+context = canvas.getContext('2d');
 
 // Your score
 //var score = 0;
 
 // Properties for your square
-//var x = 50; // X position
-//var y = 100; // Y position
-//var speed = 6; // Distance to move each frame
-//var sideLength = 50; // Length of each side of the square
+x = 50; // X position
+y = 100; // Y position
+speed = 6; // Distance to move each frame
+sideLength = 50; // Length of each side of the square
 
 // FLags to track which keys are pressed
 //var down = false;
@@ -214,7 +214,7 @@ canvas.focus();
 <body onload="init();">
 	<a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
 	<main>
-		<canvas id="board" width="600px" height="600px" style="border: 1px solid black;">
+		<canvas id='canvas' width="600px" height="600px" style="border: 1px solid black;">
 		
 		</canvas>
 	</main>
