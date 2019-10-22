@@ -91,33 +91,6 @@ function attachKeyListeners() {
    });
 }
 
-// Show the start menu
-function menu() {
-  erase();
-  context.fillStyle = '#000000';
-  context.font = '36px Arial';
-  context.textAlign = 'center';
-  context.fillText('Collect the Square!', canvas.width / 2, canvas.height / 4);
-  context.font = '24px Arial';
-  context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
-  context.font = '18px Arial'
-  context.fillText('Use the arrow keys to move', canvas.width / 2, (canvas.height / 4) * 3);
-  // Start the game on a click
-  canvas.addEventListener('click', startGame);
-}
-
-// Show the game over screen
-function endGame() {
-	// Stop the countdown
-  clearInterval(id);
-  // Display the final score
-  erase();
-  context.fillStyle = '#000000';
-  context.font = '24px Arial';
-  context.textAlign = 'center';
-  context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 2);
-}
-
 function moveSquare() {
    if (down) {
     y += speed;
@@ -229,7 +202,7 @@ function gameLoop() {
 
 </script>
 </head>
-<body>
+<body onload="init();">
 	<a href="http://bencentra.com/2017-07-11-basic-html5-canvas-games.html">Collection of Canvas based games by Ben Centra</a>
 	<main>
 		<canvas id="canvas" width="600px" height="600px" style="border: 1px solid black;">
