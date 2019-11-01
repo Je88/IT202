@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+$response = '';
 
 if(isset($_POST['username']) && isset($_POST['pin'])){
         $username = $_POST['username'];                                                                                                       $pin = $_POST['pin'];
@@ -34,6 +35,9 @@ if(isset($_POST['username']) && isset($_POST['pin'])){
         $newUser = "Temp";
         $newPin = 1234;
         $r = $stmt->execute(array(":username"=> $newUser, ":pin"=>$newPin));
+	
+	$stmt->bindValue(':username',$username);
+	$stmt->excute();
 
 	print_r($stmt->errorInfo());
 	
@@ -42,7 +46,7 @@ if(isset($_POST['username']) && isset($_POST['pin'])){
 	$select_query = "select username, password from `SignUp` where username = :username";
 	$stmt = $db->prepare($select_query);
 	$r = $stmt->execute(array(":username"=> $username));
-	$results = $stmt->fetch(PDO::FETCH_ASSOC);
+	$response = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	echo "<pre>" . var_export($results, true) . "</pre>"; 
 	
@@ -54,6 +58,7 @@ if(isset($_POST['username']) && isset($_POST['pin'])){
 	}
 	return $response;
 }
+echo $response;
 ?>
 
 <html>
