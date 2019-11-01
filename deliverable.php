@@ -4,16 +4,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require('config.php');
 
-$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
-
-if(isset($_POST['usename']) && isset($_POST['pin'])){
+if(isset($_POST['username']) && isset($_POST['pin'])){
         $username = $_POST['username'];                                                                                                       $pin = $_POST['pin'];
         $pin = $_POST['pin'];
-	
+
+	require('config.php')
+	$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";	
+
 	try{
-		$db = new PDO($conn_string, $configUser, $configPass);
+		$db = new PDO($conn_string, $username, $password);
 		echo "Connected";
 
 	$query = "create table if not exists `SignUp`(
@@ -38,47 +38,38 @@ if(isset($_POST['usename']) && isset($_POST['pin'])){
 	print_r($stmt->errorInfo());
 	
 	echo "<br>" . ($r>0?"Insert successful":"Insert failed") . "<br>";
-	
-	$select_query = "select * from `SignUp` where username = :username";
+
+	$select_query = "select username, password from `SignUp` where username = :username";
 	$stmt = $db->prepare($select_query);
-	$r = $stmt->execute(array(":username"=> "Temp"));
+	$r = $stmt->execute(array(":username"=> $username));
 	$results = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 	echo "<pre>" . var_export($results, true) . "</pre>"; 
 	
-	$response = "Welcome Back $username";
-        echo/return $response;	
+	$response = "Welcome Back " . $username;
 	}
 
 	catch(Exception $e){
-		echo $e-getMessage();
-		echo "Somethings wrong here";
+		$response = "Something's wrong here: " . $e;
 	}
+	return $response;
 }
 ?>
 
-<div>
-	<h2>Username:</h2>
-	<p>
-	<?php
-	if(isset($results['username'])){
-		echo $username;
-	}
-	else{
-		echo "User not found";
-	}
-	?>
-	</p>
+<html>
+<head>
+<title> Login Page </title>
+</head>
+<body>
+	<form action="deliverable.php" method="POST">
 
-	<h2>Password:</h2>
-	<p>
-	<?php
-	if(isset($results['pin'])){
-		echo $pin;
-	}
-	else{
-		echo "Password not found";
-	}
-	?>
-	</p>
-</div>
+    <label for="username">Username:</label>
+    <input type="text" name="username"/>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password"/>
+
+    <input type="submit" Value="Lets GOOOOOOOO"/>
+	</form>
+</body>
+</html>
