@@ -13,8 +13,8 @@ if(isset($_POST['usename']) && isset($_POST['pin'])){
         $pin = $_POST['pin'];
 	
 	try{
-	$db = new PDO($conn_string, $configUser, $configPass);
-	echo "Connected";
+		$db = new PDO($conn_string, $configUser, $configPass);
+		echo "Connected";
 	}
 	catch(Exception $e){
 		echo"Connection could not be established: " . $e->getMessage();
@@ -53,6 +53,7 @@ if(isset($_POST['usename']) && isset($_POST['pin'])){
 	catch(Exception $e){
 		echo $e-getMessage();
 		echo "Somethings wrong here";
+	}
 }
 ?>
 
@@ -70,6 +71,7 @@ if(isset($_POST['usename']) && isset($_POST['pin'])){
 	</p>
 
 	<h2>Password:</h2>
+	<p>
 	<?php
 	if(isset($results['pin'])){
 		echo $pin;
@@ -78,7 +80,5 @@ if(isset($_POST['usename']) && isset($_POST['pin'])){
 		echo "Password not found";
 	}
 	?>
-	<p>
-
 	</p>
 </div>
