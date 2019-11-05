@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 <head>
 <title> Login Page </title>
 <body>
-    <form action="deliverable.php" method="POST">
+    <form method="POST">
 	
 	<label for="username">Username:</label>
     <input type="text" name="username"/>
@@ -28,26 +28,25 @@ error_reporting(E_ALL);
 		try{	
 			require('config.php')                                                                                          	
 			$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4"; 
-			$db = new PDO($conn_string, $username, $password);
+			//$db = new PDO($conn_string, $username, $password);
 
 			$stmt = $db->prepare("INSERT into `SignUp` (`username`, `password`) VALUES(:username, :password)");
+			$stmt->bindValue(':username', $username);
 			print_r($stmt->errorInfo());
 			$results = $stmt->execute();
-			echo "<br>" . ($r>0?"Created table or already exists":"Failed to create table") . "<br>";
-			unset($results);
-			//$newUser = "Temp";
-			//$newPin = 1234;
+			//echo "<br>" . ($r>0?"Created table or already exists":"Failed to create table") . "<br>";
+			
 			//$results = $stmt->execute(array(":username"=> $newUser, ":pin"=>$newPin));	
 	
-			echo "<br>" . ($r>0?"Insert successful":"Insert failed") . "<br>";
-			$results = $stmt->fetch(PDO::FETCH_ASSOC);
+			echo "<br>" . ($results>0?"Insert successful":"Insert failed") . "<br>";
+			//$results = $stmt->fetch(PDO::FETCH_ASSOC);
 	
 			echo "<pre>" . var_export($results, true) . "</pre>"; 
 	
 			echo "Welcome Back " . $username;
 		}
 	catch(Exception $e){
-		echo "Something's wrong here: " . $e;
+		echo "Something's wrong here: " . $e->GetMessage;
 	}
 }
 ?>
