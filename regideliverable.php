@@ -34,11 +34,12 @@ error_reporting(E_ALL);
 			$db = new PDO($conn_string, $username, $password);
 			$stmt = $db->prepare("INSERT into `SignUp` (`username`, `pin`) VALUES(:username, :pin)");
 			$result = $stmt->execute(array(":username"=>$user, ":pin"=>$pass));
+			echo "<p>";
 			print_r($stmt->errorInfo());
 
 			echo var_export($result,true);
 			if((var_export($result,true)) == true){
-			echo "Welcome " . $user .  var_export($result, true);
+			echo "<p> Welcome " . $user;
 			}
 			else{
 			echo "Username Already Exists. Did you forget your password?";
