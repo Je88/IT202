@@ -18,15 +18,14 @@ function checkPasswords(){
 <head>
 <script>
 function validate(){
-	let form = document.forms[0];
-	let password = form.password.value;
-	let conf = form.confirm.value;
+	var form = document.forms[0];
+	var password = form.password.value;
+	var conf = form.confirm.value;
 	console.log(password);
 	console.log(conf);
 	let pv = document.getElementById("validation.password");
 	let succeeded = true;
-	if(password == conf){
-		
+	if(password == conf){		
 		pv.style.display = "none";
 		form.confirm.className= "noerror";	
 	}
@@ -38,8 +37,8 @@ function validate(){
 
 		succeeded = false;
 	}
-	let email = form.email.value;
-	let ev = document.getElementById("validation.email");
+	var email = form.email.value;
+	var ev = document.getElementById("validation.email");
 	
 	
 	if(email.indexOf('@') > -1){
@@ -51,9 +50,9 @@ function validate(){
 		succeeded = false;
 	}
 
-	let sel = form.World:
+	var sel = form.World;
 	//console.log(World);
-	let sel = document.getElementById("validation.World");
+	//let sel = document.getElementById("validation.World");
 	if(sel.selectedIndex == 0){
 		//ws.style.display = "block";
 		alert("Please choose a World");
