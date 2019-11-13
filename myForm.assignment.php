@@ -6,6 +6,7 @@ function getName(){
 	if(isset($_GET['name'])){
 		echo "<p>Hello, " . $_GET['name'] . "</p>";
 	}
+}
 function checkPasswords(){
 	if(isset($_POST['password']) && isset($_POST['confirm'])){
 		if($_POST['password'] == $_POST['confirm']){
