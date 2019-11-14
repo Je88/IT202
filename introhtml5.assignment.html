@@ -19,7 +19,7 @@
         } 
           
         #home { 
-            background-color: #196F3D; 
+            background-color: #58D68D; 
         }  
           
         #about { 
@@ -31,7 +31,7 @@
 		var params = new URLSearchParams(location.search);
 		if(params.has('page')){
 			var page = params.get('page');
-			var ele = document.getElementByClassName(page);
+			var ele = document.getElementById(page);
 			if(ele){
 				let home = document.getElementById('home');
 				let about = document.getElementById('about');
@@ -46,36 +46,38 @@
 			let about = document.getElementById('about');
 			about.style.display= "none";
 		}
-	 document.getElementById("home").onclick = function() { 
-  
-            document.getElementById("home").style.display = "none"; 
-  
-        } 
-  
-        document.getElementById("about").onclick = function() { 
-  
-            document.getElementById("about").style.display = "none"; 
-  
-        } 
 	}
 </script>
+
 </head>
 <body onload="queryParam();">
 	<header>
 		<nav>
-			<a href="?page=home">Home</a>
-			<a href="?page=about">About</a>
-			<!--Create route for Home-->
-			<!--Create route for About-->
+			<a href="?page=home"> Home </a>
+			<a href="?page=about"> About </a>
+
 		</nav>
 	</header>
 	<div id="home">
-		This is home
+		<h2>Home Sweet Home</h2>
 	</div>
 	<div id="about">
-		<h1>About this Game</h1>
-		<figcaption>This game features an immortal creature that hunts you all the while you also race against the clock to collect the scattered gems.</figcaption>
+		<h2>Page About This Game</h2>
+		<figcaption>This game features an immortal creature that hunts you 
+		all the while you also race against the clock to collect the scattered gems.</figcaption>
+	<br>
+
+	<article>
+	Article all about the Game
+	</article>	
+	<br><br>
+	<canvas id = "Shape" <canvas id="myCanvas" width="200" height="100"
+	style="border:16px solid #FF1000;"></canvas>	
+	
+	<br><br>
+	<a href="https://www.youtube.com">Game Trailer Here(Actually Just Youtube)</a> 
+	<footer>Footer also here</footer>
+
 	</div>
-	<footer></footer>
 </body>
 </html>
