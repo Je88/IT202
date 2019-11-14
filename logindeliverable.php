@@ -9,14 +9,14 @@ error_reporting(E_ALL);
 <title> Login </title>
 </head>
 <body>
-	<form method="POST"/>
+	<form id="register_form" method="POST"/>
 		<label for="username">Username </lable>
 		<input type="text" name="username"/>
 		
 		<label for="password">Password </label>
 		<input type="password" name="password"/>
 	
-		<input type="submit" value="WELCOME?"/>
+		<input type="submit" value="WELCOME For Real"/>
 	</form>
 </body>
 </html>
@@ -28,24 +28,34 @@ error_reporting(E_ALL);
 		$pass = $_POST['password'];
 		
 		try{
-			//$hash = password_hash($pass, PASSWORD_BCRYPT);
 			require("config.php");
 			$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 			$db = new PDO($conn_string, $username, $password);
-			$stmt = $db->prepare("INSERT into `SignUp` (`username`, `pin`) VALUES(:username, :pin)");
-			$result = $stmt->execute(array(":username"=>$user, ":pin"=>$pass));
+			$stmt = $db->prepare("select username, pin from `SignUp` 
+			where username = :username LIMIT 1");
+			$stmt->execute(array(":username"=>$user));
+			$results = $stmt->fetch(PDO::FETCH_ASSOC);
 			echo "<p>";
-			print_r($stmt->errorInfo());
-			echo var_export($result,true);
-			if((var_export($result,true)) == true){
-			echo "<p> Welcome " . $user;
+			if(($results && count($results) > 0){
+				if(password_verify($pass, $results['password'])){
+					echo "Welcome, " . $results["username"];	
+					echo "[" . $results["id"] . "]";
+					$user = array("id" => $results['id'], "name" => $results['username']);
+					$_SESSION['user'] = $user;
+					echo var_export($user, true);
+					echo var_export($_SESSION, true);
+					header("Location: landingpage.php")
+				}	
+				else{
+					echo "Invalid Password";
+				}
 			}
 			else{
-			echo "Username Already Exists. Did you forget your password?";
+				echo "Invalid Username";
 			}
 		}
 		catch(Exception $e){
-			echo "Something's wrong here: " . $e->getMessage();
+			echo  $e->getMessage();
 		}
 	}
 ?>
