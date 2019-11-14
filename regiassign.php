@@ -46,7 +46,7 @@ function validate(){
 	}
 	else{
 		ev.style.display = "block";
-		ev.innerText = "Please enter a valid email address";
+		ev.innerText = "Enter a valid email address";
 		succeeded = false;
 	}
 

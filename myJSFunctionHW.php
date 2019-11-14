@@ -9,9 +9,8 @@ function isEmail(inputEle){
 		return inputEle.value.indexOf('@') > -1;
 	}
 	
-	return true;//Wrong
-	
-	
+	return true;
+		
 }
 function myValidation(inputEle, inputName){
 	var isValid = true;
@@ -20,27 +19,22 @@ function myValidation(inputEle, inputName){
 		let v1 = inputEle.value;
 		let v2 = other.value;
 		if(isEmpty(v1)){
-			//do error empty
 			isValid = false;
 			console.log("Value 1 is empty");
 		}
 		if(isEmpty(v2)){
-			//do error empty
 			isValid = false;
 			console.log("Value 2 is empty");
 		}
 		if(v1 != v2){
-			//do error
 			isValid = false;
 			console.log("Value 1 and value 2 don't match");
 		}
 		if(!isEmail(inputEle)){
-			//do error email
 			isValid = false;
 			console.log("First email input is not a valid email");
 		}
 		if(!isEmail(other)){
-			//do error email
 			isValid = false;
 			console.log("Second email input is not a valid email");
 		}
@@ -66,24 +60,33 @@ function myValidation(inputEle, inputName){
 <body>
 <form onsubmit="return false;">
 <input type="email" name="email" placeholder="Email"
-	onchange="myValidation(this, '');"
-/>
+	onchange="myValidation(this, '');"/>
+
 <input type="email" name="confirmemail" placeholder="Confirm Email"
 	onchange="myValidation(this,'email');"/>
-<input type="password" name="password"
+<br>
+
+<input type="password" name="password" placeholder="Password"
 	onchange="myValidation(this, '');" />
-<input type="password" name="confirmpassword"
+
+<input type="password" name="confirmpassword" placeholder="Confirm Password"
 	onchange="myValidation(this, 'password');"/>
+<br>
+
 <input type="text" name="username" placeholder="Username"
 	onchange="myValidation(this, '');"/>
+<br>
+
 <select name="test1">
 	<option value="0">0</option>
 	<option value="1">1</option>
 </select>
+
 <select name="test2" onchange="myValidation(this,'test1');">
 	<option value="0">0</option>
 	<option value="1">1</option>
 </select>
+<br>
 <input type="submit" value="Try it"/>
 </form>
 </body>
