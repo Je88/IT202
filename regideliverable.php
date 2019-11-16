@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,23 +8,6 @@ error_reporting(E_ALL);
 <html>
 <head>
 <title> Register </title>
-
-<script>
-$(document).ready(function(){
-	$('#register_form').submit(function(event){
-		if(this.password.value.length == 0 || this.check.value.length == 0){
-			alert("Please enter a password and confirm it");
-			return false;
-		}
-		let isOk = this.password.value == this.check.value;
-		if(!isOk){
-			alert("Password and Confirm password don't match");
-		}
-		return isOk;
-	});
-});
-</script>
-
 </head>
 <body>
 	<form method="POST"/>
@@ -34,24 +18,30 @@ $(document).ready(function(){
 		<input type="password" name="password"/>
 
 		<label for="password">Pass Check </label>
-                <input type="password" name="check"/>
-
+                <input type="password" name="confirm"/>
+		<br>
 		<input type="submit" value="WELCOME?"/>
+		<br>
+		
+		
 	</form>
 </body>
 </html>
 <?php
-	if(isset($_POST['username']) 
-		&& isset($_POST['password'])){
-			
+	if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['confirm'])){
 		$user = $_POST['username'];
-		$pass = $_POST['password'];
-		$check = $_POS['check']
+                $pass = $_POST['password'];
+                $confirm = $_POST['confirm'];
 		
 		if($pass != $confirm){
-			echo "Passwords don't match";
-			exit();
-		}
+                        echo "Passwords don't match";
+                        exit();
+                }
+                else{
+                echo "<br>";
+		echo "Congrats on Registering " . $_POST["username"];
+		
+                }
 
 		try{
 			$hash = password_hash($pass, PASSWORD_BCRYPT);
@@ -59,17 +49,11 @@ $(document).ready(function(){
 			$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 			$db = new PDO($conn_string, $username, $password);
 			$stmt = $db->prepare("INSERT into `SignUp` (`username`, `pin`) VALUES(:username, :pin)");
-			$result = $stmt->execute(array(":username"=>$user, ":pin"=>$hash));
+			$stmt->execute(array(":username"=>$user, ":pin"=>$hash));
+			$results = $stmt->fetch(PDO::FETCH_ASSOC);
 			echo "<p>";
-			print_r($stmt->errorInfo());
-
-			echo var_export($result,true);
-			if((var_export($result,true)) == true){
-			echo "<p> Welcome " . $user;
-			}
-			else{
-			echo "Username Already Exists. Did you forget your password?";
-			}
+			//print_r($stmt->errorInfo());
+			//echo var_export($results,true);
 
 		}
 		catch(Exception $e){
