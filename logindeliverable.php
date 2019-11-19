@@ -31,22 +31,15 @@ error_reporting(E_ALL);
 		$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 
                 try{
-                        //require("config.php");
-                        //$conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
-                        
 			$db = new PDO($conn_string, $username, $password);
                         $stmt = $db->prepare("select username, pin FROM `SignUp` WHERE username = :username LIMIT 1");
                         $stmt->execute(array(":username"=>$user));
                         $results = $stmt->fetch(PDO::FETCH_ASSOC);
 			
 			if(password_verify($pass, $results['pin'])){
-				header("Location: landingpage.php");
+				header("Location: gamepage.php");
 				echo "Welcome, " . $results["username"];
 				echo var_export($results, true);
-                                //$user = array("name" => $results['username']);
-                                //$_SESSION['user'] = $user;
-                                //echo var_export($user, true);
-                                //echo var_export($_SESSION, true);
 			}
 			else{
 				$results = false;

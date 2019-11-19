@@ -14,12 +14,10 @@ include 'classes.php';
 </head>
 <body>
 	<div id = "contents">
-	<h2>Continue to login <?php echo $_SESSION["username"]; ?></h2>
-
 	<a href="regideliverable.php" class ="button">Register</a>
 	<br>
 	<?php if(empty($_SESSION['username'])): ?>
-		<button>Not Logged</button>
+		<a href="logindeliverable.php" class ="button">Not Logged</a>
 		<br>	
 	<?php else: ?>	
 		<a href="gamepage.php" class ="button">Login</a>

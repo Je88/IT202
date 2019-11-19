@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'classes.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,38 +9,26 @@ session_start();
 <style>
 .nav{padding:1%;}
 </style>
-<section>Welcome <?php echo $_SESSION["username"]; ?></section>
 </head>
 <body>
-       <form action="homepage.php" style="display: inline-grid">
-        <input type="submit" value="Single Player"/>
-        </form>
-	<br>
-	<form action="homepage.php" style="display: inline-grid">
-        <input type="submit" value="Multi-Player"/>
-        </form>
-	<br>
-	<form action="homepage.php" style="display: inline-grid">
-        <input type="submit" value="Scoreboard"/>
-        </form>
-	<br>
-	<form action="landingpage.php" style="display: inline-grid">
-        <input type="submit" value="Logout"/>
-        </form>
-	<br>
-	<form action="homepage.php" style="display: inline-grid">
-        <input type="submit" value="Accounts & Scores"/>
-        </form>
-	<ul id="menu">
-		<li><a href="home.php">Single Player</a></li>
-		<li><a href="shop.php">Multi-Player</a></li>
-		<li><a href="faq.php">Scoreboard</a></li>
-		<li><a href="logout.php">Logout</a></li>
-		<li><a href="registration.php">Register</a></li>
-		<?php if($_SESSION['username'] = "admin"): ?>
-			<li><a href="Admin.php">Accounts & Scores</a></li>
-		<?php endif; ?>
-	</ul>
+	<div id = "contents">
+	<h2>Welcome to the Game <?php echo $_SESSION["username"]; ?></h2>
 
+	<a href="SinglePlayer.php" class ="button">Single Player</a>
+	<br>
+	<a href="MultiPlayer.php" class ="button">Multi-Player</a>
+	<br>
+	<a href="Scoreboard.php" class ="button">High Scores</a>
+	<br>
+	<a href="logout.php" class ="button">Log Out</a>
+	<br>
+	<?php if($_SESSION['username'] != "admin"): ?>
+		<a href="#" class ="button">KnOt4urIs</a>
+		<br>	
+	<?php else: ?>	
+		<a href="accounts.php" class ="button">Accounts & Scores</a>
+		<br>
+	<?php endif; ?>
+	</div>
 </body>
 </html>
