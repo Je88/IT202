@@ -14,9 +14,9 @@ include 'classes.php';
 	<div id = "contents">
 	<h2>Welcome to the Game <?php echo $_SESSION["username"]; ?></h2>
 
-	<a href="SinglePlayer.php" class ="button">Single Player</a>
+	<a href="singleplayer.html" class ="button">Single Player</a>
 	<br>
-	<a href="MultiPlayer.php" class ="button">Multi-Player</a>
+	<a href="multiplayer.html" class ="button">Multi-Player</a>
 	<br>
 	<a href="Scoreboard.php" class ="button">High Scores</a>
 	<br>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!-- Hunted Game, edited from Collect The Square game -->
+<html>
+<head>
+<script>
+// Get a reference to the canvas DOM element
+var canvas;
+// Get the canvas drawing context
+var context;
+// Your score
+var score = 0;
+// Properties for your square
+var x = 50; // X position
+var y = 100; // Y position
+var speed = 6; // Distance to move each frame
+var sideLength = 25; // Length of each side of the square
+// Flags to track which keys are pressed
+var down = false;
+var up = false;
+var right = false;
+var left = false;
+// Properties for the target circle
+var targetX = 0;
+var targetY = 0;
+var targetLength = 10;
+// PROPERTIES FOR POWER UP SQUARE
+var powerX = 0;
+var powerY = 0;
+var powerLength = 25;
+// ID to track the setTimeout
+var id = null;
+
+var t = 0;
+var interval = t;
+var totaltime = 0;
+var minutesLable = document.getElementById("minutes");
+var secondsLable = document.get ElementById("seconds");
+setInterval(setTime, 1000);
+function setTime(){
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+} 
+
+// Determine if number a is within the range b to c (exclusive)
+function isWithin(a, b, c) {
+  return (a > b && a < c);
+}
+// runs on page load
+function init() {
+  canvas =  document.getElementById("board");
+  context = canvas.getContext("2d");
+  canvas.focus();
+  startGame();
+}
+// Listen for keydown events
+window.addEventListener('keydown', function(event) {
+  event.preventDefault();
+  console.log(event.key, event.keyCode);
+  if (event.keyCode === 40) { // DOWN
+    down = true;
+  }
+  if (event.keyCode === 38) { // UP
+    up = true;
+  }
+  if (event.keyCode === 37) { // LEFT
+    left = true;
+  }
+  if (event.keyCode === 39) { // RIGHT
+    right = true;
+  }
+});
+// Listen for keyup events
+window.addEventListener('keyup', function(event) {
+  event.preventDefault();
+  console.log(event.key, event.keyCode);
+  if (event.keyCode === 40) { // DOWN
+    down = false;
+  }
+  if (event.keyCode === 38) { // UP
+    up = false;
+  }
+  if (event.keyCode === 37) { // LEFT
+    left = false;
+  }
+  if (event.keyCode === 39) { // RIGHT
+    right = false;
+  }
+});
+// Start the game
+function startGame() {
+  // Stop listening for click events
+  window.removeEventListener('click', startGame);
+  // Put the target at a random starting point
+	moveTarget();
+  movePowerUp();
+  // Kick off the draw loop
+  draw();
+}
+// Show the game over screen
+function endGame() {
+  // Display the final score
+  erase();
+  context.fillStyle = '#000000';
+  context.font = '24px Arial';
+  context.textAlign = 'center';
+  context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 2);
+}
+// Move the target square to a random position
+function moveTarget() {
+  targetX = Math.round(Math.random() * canvas.width - targetLength);
+  targetY = Math.round(Math.random() * canvas.height - targetLength)
+}
+// MOVE POWERUP SOMEWHERE, BUT NOT ALL THE TIME
+function movePowerUp() {
+  // IF RANDOM SEED IS GREATER THAN OTHER SEED, PRODUCE POWER UP
+  powerX = Math.round(Math.random() * canvas.width - powerLength);
+  powerY = Math.round(Math.random() * canvas.height - powerLength);
+}
+// Clear the canvas
+function erase() {
+  context.fillStyle = '#FFFFFF';
+  context.fillRect(0, 0, 600, 600);
+}
+// The main draw loop
+function draw() {
+  erase();
+  // Move the square
+  if (down) {
+    y += speed;
+  }
+  if (up) {
+    y -= speed;
+  }
+  if (right) {
+    x += speed;
+  }
+  if (left) {
+    x -= speed;
+  }
+  // Collide with the target
+  if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
+    if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
+      // Respawn the target
+      moveTarget();//Want a set number of targets that spawned at start of level 
+		   //but will continue to respawn as game progresses
+      // Increase the score
+      score++;
+    }
+  }
+  // COLLIDE WITH POWER UP
+  if (isWithin(powerX, x, x + sideLength) || isWithin(powerX + targetLength, x, x + sideLength)) { // X
+    if (isWithin(powerY, y, y + sideLength) || isWithin(powerY + targetLength, y, y + sideLength)) { // Y
+      // Respawn the power up, else don't show it
+      rand = Math.random();
+      rand2 = Math.random();
+      if (rand > rand2) {
+        movePowerUp();
+      }
+      else {
+      }
+      // Do power up things
+      //sideLength+= 1;// removes constrained vision for 5 secs
+    }
+  }
+   if(constrained vision is true){
+  countdown then set it false when it hits 0 to return back to constrained vision view
+  }
+  // Draw the square
+  context.fillStyle = '#FF0000';
+  context.fillRect(x, y, sideLength, sideLength);
+  // Draw the circular BLUE targets
+  context.fillStyle = '#0000FF';
+  var radius = 10;
+  context.beginPath();
+  context.arc(targetX, targetY, radius, 0, 2 * Math.PI);
+  context.closePath();
+  context.fill();
+  // DRAW THE POWER-UP
+  context.fillStyle = '#F0F000';
+  context.fillRect(powerX, powerY, powerLength, powerLength);
+  // Draw the score
+  context.fillStyle = '#000000';
+  context.font = '24px Arial';
+  context.textAlign = 'left';
+  context.fillText('Score: ' + score, 10, 24);
+  context.fillText('Time Survived: ' + maintime, 10, 24);
+  
+  //adds one to t every 15 seconds
+  setInterval(function(){t++;}, 15000);
+  setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
+
+  if(maintime > 15000 * interval){
+	playerspeed = speed + interval;
+	aispeed = speed + (interval/2);
+  }
+
+  // End the game when ai collides with player
+  if(overlap = true) {
+  	endGame();
+	clearTimeout(maintime);
+  }
+  else {
+    window.requestAnimationFrame(draw);
+  }
+}
+</script>
+</head>
+
+<body onload="init();">
+  <main>
+    <canvas id="board" width="600px" height="600px" style="border: 1px solid black;">
+    </canvas>
+  </main>
+</body>
+</html>
