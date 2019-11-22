@@ -12,8 +12,13 @@ var score = 0;
 // Properties for your square
 var x = 50; // X position
 var y = 100; // Y position
-var speed = 6; // Distance to move each frame
-var sideLength = 25; // Length of each side of the square
+var speed = 2; // Distance to move each frame
+var sideLength = 20; // Length of each side of the square
+// Properties for your AI Hunter
+var aix = 100; // X position
+var aiy = 200; // Y position
+var aispeed = 1.5; // Distance to move each frame
+var aiLength = 25; // Length of each side of the square
 // Flags to track which keys are pressed
 var down = false;
 var up = false;
@@ -22,36 +27,16 @@ var left = false;
 // Properties for the target circle
 var targetX = 0;
 var targetY = 0;
-var targetLength = 10;
-// PROPERTIES FOR POWER UP SQUARE
-var powerX = 0;
-var powerY = 0;
-var powerLength = 25;
+var targetLength = 5;
+// PROPERTIES FOR POWER UP
+var pupX = 0;
+var pupY = 0;
+var pupLength = 20;
+//CountdownTimer
+var countdown = 90 
 // ID to track the setTimeout
 var id = null;
-
 var t = 0;
-var interval = t;
-var totaltime = 0;
-var minutesLable = document.getElementById("minutes");
-var secondsLable = document.get ElementById("seconds");
-setInterval(setTime, 1000);
-
-function setTime(){
-  ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-} 
-
-function pad(val) {
-  var valString = val + "";
-  if (valString.length < 2) {
-    return "0" + valString;
-  } else {
-    return valString;
-  }
-}
-
 // Determine if number a is within the range b to c (exclusive)
 function isWithin(a, b, c) {
   return (a > b && a < c);
@@ -99,6 +84,10 @@ window.addEventListener('keyup', function(event) {
 });
 // Start the game
 function startGame() {
+  //Reduce timer every second
+  id = setInterval(function() {
+	countdown--;
+  }, 1000)
   // Stop listening for click events
   window.removeEventListener('click', startGame);
   // Put the target at a random starting point
@@ -107,6 +96,9 @@ function startGame() {
   // Kick off the draw loop
   draw();
 }
+//increase player speed every 15 seconds
+setInterval(function(){t++;}, 15000);
+
 // Show the game over screen
 function endGame() {
   // Display the final score
@@ -124,8 +116,8 @@ function moveTarget() {
 // MOVE POWERUP SOMEWHERE, BUT NOT ALL THE TIME
 function movePowerUp() {
   // IF RANDOM SEED IS GREATER THAN OTHER SEED, PRODUCE POWER UP
-  powerX = Math.round(Math.random() * canvas.width - powerLength);
-  powerY = Math.round(Math.random() * canvas.height - powerLength);
+  pupX = Math.round(Math.random() * canvas.width - pupLength);
+  pupY = Math.round(Math.random() * canvas.height - pupLength);
 }
 // Clear the canvas
 function erase() {
@@ -148,19 +140,32 @@ function draw() {
   if (left) {
     x -= speed;
   }
+//Keeps in Bounds
+  if (y + sideLength > canvas.height) {
+    y = canvas.height - sideLength;
+  }
+  if (y < 0) {
+    y = 0;
+  }
+  if (x < 0) {
+    x = 0;
+  }
+  if (x + sideLength > canvas.width) {
+    x = canvas.width - sideLength;
+  }
+
   // Collide with the target
   if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
     if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
       // Respawn the target
-      moveTarget();//Want a set number of targets that spawned at start of level 
-		   //but will continue to respawn as game progresses
+      moveTarget();
       // Increase the score
       score++;
     }
   }
   // COLLIDE WITH POWER UP
-  if (isWithin(powerX, x, x + sideLength) || isWithin(powerX + targetLength, x, x + sideLength)) { // X
-    if (isWithin(powerY, y, y + sideLength) || isWithin(powerY + targetLength, y, y + sideLength)) { // Y
+  if (isWithin(pupX, x, x + pupLength) || isWithin(pupX + pupLength, x, x + pupLength)) { // X
+    if (isWithin(pupY, y, y + pupLength) || isWithin(pupY + pupLength, y, y + pupLength)) { // Y
       // Respawn the power up, else don't show it
       rand = Math.random();
       rand2 = Math.random();
@@ -170,16 +175,14 @@ function draw() {
       else {
       }
       // Do power up things
-      //sideLength+= 1;// removes constrained vision for 5 secs
+      sideLength+= 1;
     }
   }
-   if(constrained vision is true){
-  countdown then set it false when it hits 0 to return back to constrained vision view
-  }
-  // Draw the square
+  // Draw the player
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
-  // Draw the circular BLUE targets
+  // Draw the target 
+  // BLUE CIRCLE POINT
   context.fillStyle = '#0000FF';
   var radius = 10;
   context.beginPath();
@@ -188,32 +191,21 @@ function draw() {
   context.fill();
   // DRAW THE POWER-UP
   context.fillStyle = '#F0F000';
-  context.fillRect(powerX, powerY, powerLength, powerLength);
-  // Draw the score
+  context.fillRect(pupX, pupY, pupLength, pupLength);
+  // Draw the score & time remaining
   context.fillStyle = '#000000';
   context.font = '24px Arial';
   context.textAlign = 'left';
   context.fillText('Score: ' + score, 10, 24);
-  context.fillText('Time Survived: ' + maintime, 10, 24);
-//  <label id="minutes">00</label>:<label id="seconds">00</label>
-
-  //adds one to t every 15 seconds
-//  setInterval(function(){t++;}, 15000);
-//  setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
-
-//  if(maintime > 15000 * interval){
-//	playerspeed = speed + interval;
-//	aispeed = speed + (interval/2);
-//  }
-
-//   End the game when ai collides with player
-//  if(overlap = true) {
-//  	endGame();
-//	clearTimeout(maintime);
-//  }
-//   else {
-//    window.requestAnimationFrame(draw);
-//  }
+  context.fillText('Time Remaining: ' + countdown, 10, 50);
+  
+  // 
+  if(countdown <= 0) {
+    endGame();
+  }
+  else {
+    window.requestAnimationFrame(draw);
+  }
 }
 </script>
 </head>
