@@ -36,11 +36,21 @@ var totaltime = 0;
 var minutesLable = document.getElementById("minutes");
 var secondsLable = document.get ElementById("seconds");
 setInterval(setTime, 1000);
+
 function setTime(){
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
   minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 } 
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
 
 // Determine if number a is within the range b to c (exclusive)
 function isWithin(a, b, c) {
@@ -185,24 +195,25 @@ function draw() {
   context.textAlign = 'left';
   context.fillText('Score: ' + score, 10, 24);
   context.fillText('Time Survived: ' + maintime, 10, 24);
-  
+//  <label id="minutes">00</label>:<label id="seconds">00</label>
+
   //adds one to t every 15 seconds
-  setInterval(function(){t++;}, 15000);
-  setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
+//  setInterval(function(){t++;}, 15000);
+//  setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
 
-  if(maintime > 15000 * interval){
-	playerspeed = speed + interval;
-	aispeed = speed + (interval/2);
-  }
+//  if(maintime > 15000 * interval){
+//	playerspeed = speed + interval;
+//	aispeed = speed + (interval/2);
+//  }
 
-  // End the game when ai collides with player
-  if(overlap = true) {
-  	endGame();
-	clearTimeout(maintime);
-  }
-  else {
-    window.requestAnimationFrame(draw);
-  }
+//   End the game when ai collides with player
+//  if(overlap = true) {
+//  	endGame();
+//	clearTimeout(maintime);
+//  }
+//   else {
+//    window.requestAnimationFrame(draw);
+//  }
 }
 </script>
 </head>
