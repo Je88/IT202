@@ -17,7 +17,7 @@ var sideLength = 20; // Length of each side of the square
 // Properties for your AI Hunter
 var aix = 100; // X position
 var aiy = 200; // Y position
-var aispeed = 1.5; // Distance to move each frame
+var aiSpeed = 1.5; // Distance to move each frame
 var aiLength = 25; // Length of each side of the square
 // Flags to track which keys are pressed
 var down = false;
@@ -42,6 +42,7 @@ var t = 1, ais = 1;
 function isWithin(a, b, c) {
   return (a > b && a < c);
 }
+
 // runs on page load
 function init() {
   canvas =  document.getElementById("board");
@@ -104,12 +105,12 @@ function startGame() {
 }
 
 //increase player & ai speed every 15 seconds
-setInterval(function(){t++;}, 15000);
-setInterval(function(){ais++}, 20000);
-setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
+//setInterval(function(){t++;}, 15000);
+//setInterval(function(){ais++}, 20000);
+//setInterval(function(){alert("You Just made it another MINUTE Congrats");}, 60000);
 //increasing players speed
-  if(countup > 15 * t){
-      speed += speed + t;
+//  if(countup > 15 * t){
+//      speed += speed + t;
 }
 //increasing ai speed                                                                                                            
 //  if(countup > 20 * t){                                                                                                      
@@ -172,6 +173,7 @@ function draw() {
     x = canvas.width - sideLength;
   }
 
+
   // Collide with the target
   if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
     if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
@@ -199,6 +201,9 @@ function draw() {
   // Draw the player
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
+  // Draw the Ai
+  //context.fillStyle = '#FF0030';
+  //context.fillRect(aiX, aiY, aiLength, aiLength);
   // Draw the target 
   // BLUE CIRCLE POINT
   context.fillStyle = '#0000FF';
