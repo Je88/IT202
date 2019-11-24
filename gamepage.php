@@ -22,7 +22,7 @@ include 'classes.php';
 	<br>
 	<a href="logout.php" class ="button">Log Out</a>
 	<br>
-	<?php if($_SESSION['username'] != "admin"): ?>
+	<?php if($_SESSION['username'] != "Admin"): ?>
 		<a href="#" class ="button">KnOt4urIs</a>
 		<br>	
 	<?php else: ?>	
