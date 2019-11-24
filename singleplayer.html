@@ -159,7 +159,7 @@ function endGame() {
   context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 6);
  
   
-  $score = score;
+ /* $score = score;
   require("config.php");
   $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
   try{
@@ -171,9 +171,9 @@ function endGame() {
   catch(Exception $e){
     echo $e->getMessage();
   }
-  //if(Get[UserHighScore] < score){
-  //UserHighScore = score;
-  //}  
+  if(Get[UserHighScore] < score){
+  UserHighScore = score;
+  }*/  
 }
 // Move the target square to a random position
 function moveTarget() {
@@ -288,6 +288,25 @@ function draw() {
   // 
   if(countdown <= 0 || ((isWithin(aiX, x, x + aiLength) || isWithin(aiX + aiLength, x, x + aiLength)) && (isWithin(aiY, y, y + aiLength) || isWithin(aiY + aiLength, y, y + aiLength)))){
     endGame();
+  
+    $score = score;
+    require("config.php");
+    $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
+    try{
+      $db = new PDO($conn_string, $username, $password);
+      $stmt = $db->prepare("select Score FROM `SignUp` WHERE username = :username LIMIT 1");
+      $stmt->execute(array(":score"=> $score));
+      $results = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+    echo $e->getMessage();
+    }
+  
+    //if(Get[UserHighScore] < score){
+    //UserHighScore = score;
+    //}
+  
+    //Makes hidden div buttons visible
     var b = document.getElementById("AgainOrEnd");                                 
     if (b.style.display = "none") {
       b.style.display = "block";
