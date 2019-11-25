@@ -63,8 +63,7 @@ var pupLength = 20;
 //CountdownTimer
 var countdown = 90;
 var countup = 0;
-//var click = 0;
- 
+
 // ID to track the setTimeout
 var id = null;
 var t = 1, ais = 1;
@@ -249,18 +248,18 @@ function draw() {
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
   // Draw the Ai
-  context.fillStyle = '#FF0000';
+  context.fillStyle = '#000000';
   context.fillRect(aiX, aiY, aiLength, aiLength);
   // Draw the target 
   // BLUE CIRCLE POINT
-  context.fillStyle = '#0000FF';
+  context.fillStyle = '#00FF00';
   var radius = 10;
   context.beginPath();
   context.arc(targetX, targetY, radius, 0, 2 * Math.PI);
   context.closePath();
   context.fill();
   // DRAW THE POWER-UP
-  context.fillStyle = '#F0F000';
+  context.fillStyle = '#FFFF00';
   context.fillRect(pupX, pupY, pupLength, pupLength);
   // Draw the score & time remaining
   context.fillStyle = '#000000';
@@ -300,14 +299,6 @@ function draw() {
   else {
     window.requestAnimationFrame(draw);
   }
-
-  //if(click = 1){
-   // var b = document.getElementById("AgainOrEnd");
-   // if (b.style.display === "none") {
-   //   b.style.display = "block";
-   // } 
-    
-  //}
 }
 </script>
   
