@@ -119,9 +119,10 @@ function startGame() {
   id = setInterval(function() {
 	countdown--;
   }, 1000)
+  
   //increase timer every second
   id = setInterval(function() {
-	countup++;
+  	countup++;
   }, 1000)
 
   // Stop listening for click events
@@ -133,6 +134,7 @@ function startGame() {
   // Kick off the draw loop
   draw();
 }
+
 
 //increase player & ai speed every 15 seconds
 //setInterval(function(){t++;}, 15000);
@@ -230,19 +232,17 @@ function draw() {
     }
   }
   // COLLIDE WITH POWER UP
-  if (isWithin(pupX, x, x + pupLength) || isWithin(pupX + pupLength, x, x + pupLength)) { // X
-    if (isWithin(pupY, y, y + pupLength) || isWithin(pupY + pupLength, y, y + pupLength)) { // Y
-      // Respawn the power up, else don't show it
-      rand = Math.random();
-      rand2 = Math.random();
-      if (rand > rand2) {
-        movePowerUp();
-      }
-      else {
-      // Do power up things
-      sideLength+= 1;
+  if ((isWithin(pupX, x, x + pupLength) || isWithin(pupX + pupLength, x, x + pupLength)) && ((isWithin(pupY, y, y + pupLength) || isWithin(pupY + pupLength, y, y + pupLength))) { 
+	speed += 1;
+        start = 1;
     }
-  }
+  //Respawn Power Up
+  if(countup = 5){
+        // Respawn the power up
+        movePowerUp();
+        countup = 0;
+        //exitneeded?
+       } 
 }
   // Draw the player
   context.fillStyle = '#FF0000';
