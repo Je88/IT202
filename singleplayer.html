@@ -165,9 +165,8 @@ function moveTarget() {
   targetX = Math.round(Math.random() * canvas.width - targetLength);
   targetY = Math.round(Math.random() * canvas.height - targetLength)
 }
-// MOVE POWERUP SOMEWHERE, BUT NOT ALL THE TIME
+// MOVE POWERUP 
 function movePowerUp() {
-  // IF RANDOM SEED IS GREATER THAN OTHER SEED, PRODUCE POWER UP
   pupX = Math.round(Math.random() * canvas.width - pupLength);
   pupY = Math.round(Math.random() * canvas.height - pupLength);
 }
@@ -234,16 +233,16 @@ function draw() {
   // COLLIDE WITH POWER UP
   if ((isWithin(pupX, x, x + pupLength) || isWithin(pupX + pupLength, x, x + pupLength)) && ((isWithin(pupY, y, y + pupLength) || isWithin(pupY + pupLength, y, y + pupLength))) { 
 	speed += 1;
-        start = 1;
+        //start = 1;
     }
   //Respawn Power Up
-  if(countup = 5){
+  //if(countup = 5){
         // Respawn the power up
-        movePowerUp();
-        countup = 0;
+     //   movePowerUp();
+        //countup = 0;
         //exitneeded?
-       } 
-}
+
+//}
   // Draw the player
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
