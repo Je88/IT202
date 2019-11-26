@@ -167,6 +167,13 @@ function movePowerUp() {
   pupX = Math.round(Math.random() * canvas.width - pupLength);
   pupY = Math.round(Math.random() * canvas.height - pupLength);
 }
+/*function scoreUpdater() {
+	$.ajax({
+	url: "scoreUpdate.php"
+	}).done(scoreUpdater);
+}*/
+	/*location.href = 'scoreUpdate.php';
+}*/
 // Clear the canvas
 function erase() {
   context.fillStyle = '#FFFFFF';
@@ -258,11 +265,14 @@ function draw() {
   
   // End the game when collision with side occurs, or keep playing
   if(countdown <= 0 || ((isWithin(aiX, x, x + aiLength) || isWithin(aiX + aiLength, x, x + aiLength)) && (isWithin(aiY, y, y + aiLength) || isWithin(aiY + aiLength, y, y + aiLength)))){
-  	endGame();
+  	//Updates score saved in sql to score achieved by end of game
+	//scoreUpdater();
 	
-        var b = document.getElementById("AgainOrEnd");                                 
+	endGame();
+	//Makes Divs present
+	var b = document.getElementById("AgainOrEnd");                                 
 	if (b.style.display = "none") {
-		b.style.display = "block";
+	   b.style.display = "block";
 	}
   }
   else {
