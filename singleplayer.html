@@ -199,7 +199,7 @@ function draw() {
 	  x = 0;
   }
   if (x + sideLength > canvas.width){
-	  x = canvas.width = sideLength;
+	  x = canvas.width - sideLength;
   }
   //MoveAI
   if(x != aiX && y != aiY){
@@ -226,8 +226,8 @@ function draw() {
     }
   }
   // COLLIDE WITH POWER UP
-  if (isWithin(powerX, x, x + sideLength) || isWithin(powerX + targetLength, x, x + sideLength)) { // X
-    if (isWithin(powerY, y, y + sideLength) || isWithin(powerY + targetLength, y, y + sideLength)) { // Y
+  if (isWithin(pupX, x, x + sideLength) || isWithin(pupX + targetLength, x, x + sideLength)) { // X
+    if (isWithin(pupY, y, y + sideLength) || isWithin(pupY + targetLength, y, y + sideLength)) { // Y
         movePowerUp();
       // Do power up things
         speed += 1;
