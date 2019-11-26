@@ -45,7 +45,6 @@ var sideLength = 20; // Length of each side of the square
 // Properties for your AI Hunter
 var aiX = 400; // X position
 var aiY = 400; // Y position
-var aiSpeed = 1.5; // Distance to move each frame
 var aiLength = 25; // Length of each side of the square
 // Flags to track which keys are pressed
 var down = false;
@@ -66,7 +65,6 @@ var countup = 0;
 
 // ID to track the setTimeout
 var id = null;
-var t = 1, ais = 1;
 // Determine if number a is within the range b to c (exclusive)
 function isWithin(a, b, c) {
   return (a > b && a < c);
@@ -127,10 +125,9 @@ function startGame() {
 
   // Stop listening for click events
   window.removeEventListener('click', startGame);
-  // Put the target at a random starting point
+  // Put the Target.Powerup at a random starting point
 	moveTarget();
-  movePowerUp();
-  //click = 0;
+        movePowerUp();
   // Kick off the draw loop
   draw();
 }
@@ -163,7 +160,7 @@ function endGame() {
 // Move the target square to a random position
 function moveTarget() {
   targetX = Math.round(Math.random() * canvas.width - targetLength);
-  targetY = Math.round(Math.random() * canvas.height - targetLength)
+  targetY = Math.round(Math.random() * canvas.height - targetLength);
 }
 // MOVE POWERUP 
 function movePowerUp() {
@@ -191,36 +188,34 @@ function draw() {
   if (left) {
     x -= speed;
   }
-//Keeps in Bounds
-  if (y + sideLength > canvas.height) {
-    y = canvas.height - sideLength;
+  //Keep in Bounds
+  if(y + sideLength > canvas.height){
+	  y = canvas.height - sideLength;
   }
-  if (y < 0) {
-    y = 0;
+  if(y < 0){
+	  y = 0;
   }
-  if (x < 0) {
-    x = 0;
+  if(x < 0){
+	  x = 0;
   }
-  if (x + sideLength > canvas.width) {
-    x = canvas.width - sideLength;
+  if (x + sideLength > canvas.width){
+	  x = canvas.width = sideLength;
   }
-  //Move AI
+  //MoveAI
   if(x != aiX && y != aiY){
-    if(x >= aiX){
-      aiX += 1;
-    }
-    else{   
-      aiX -= 1;
-    }
-
-    if(y < aiY){
-      aiY -= 1;
-    }
-    else{                                                                                                            
-      aiY += 1;
-    }     
+	  if(x >= aiX){
+		  aiX += 1;
+	  }
+	  else{
+		  aiX -= 1;
+	  }
+	  if(y >= aiY){
+		  aiY += 1;
+	  }
+	  else{
+		  aiY -= 1;
+	  }
   }
-
   // Collide with the target
   if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
     if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
@@ -231,78 +226,51 @@ function draw() {
     }
   }
   // COLLIDE WITH POWER UP
-  if ((isWithin(pupX, x, x + pupLength) || isWithin(pupX + pupLength, x, x + pupLength)) && ((isWithin(pupY, y, y + pupLength) || isWithin(pupY + pupLength, y, y + pupLength))) { 
-	speed += 1;
-        //start = 1;
+  if (isWithin(powerX, x, x + sideLength) || isWithin(powerX + targetLength, x, x + sideLength)) { // X
+    if (isWithin(powerY, y, y + sideLength) || isWithin(powerY + targetLength, y, y + sideLength)) { // Y
+        movePowerUp();
+      // Do power up things
+        speed += 1;
     }
-  //Respawn Power Up
-  //if(countup = 5){
-        // Respawn the power up
-     //   movePowerUp();
-        //countup = 0;
-        //exitneeded?
-
-//}
-  // Draw the player
+  }
+  // Draw Player
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
-  // Draw the Ai
+  //Draw AI
   context.fillStyle = '#000000';
   context.fillRect(aiX, aiY, aiLength, aiLength);
-  // Draw the target 
-  // BLUE CIRCLE POINT
+  // Draw the target - Blue Points
   context.fillStyle = '#00FF00';
   var radius = 10;
   context.beginPath();
   context.arc(targetX, targetY, radius, 0, 2 * Math.PI);
   context.closePath();
   context.fill();
-  // DRAW THE POWER-UP
+  // DRAW POWER-UP
   context.fillStyle = '#FFFF00';
   context.fillRect(pupX, pupY, pupLength, pupLength);
-  // Draw the score & time remaining
+  // Draw the score
   context.fillStyle = '#000000';
   context.font = '24px Arial';
   context.textAlign = 'left';
   context.fillText('Score: ' + score, 10, 24);
   context.fillText('Time Remaining: ' + countdown, 10, 50);
   
-  // 
+  // End the game when collision with side occurs, or keep playing
   if(countdown <= 0 || ((isWithin(aiX, x, x + aiLength) || isWithin(aiX + aiLength, x, x + aiLength)) && (isWithin(aiY, y, y + aiLength) || isWithin(aiY + aiLength, y, y + aiLength)))){
-    endGame();
-  
-    /*$score = score;
-    require("config.php");
-    $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
-   
-    try{
-      $db = new PDO($conn_string, $username, $password);
-      $upscore = $db->prepare("update Score FROM `SignUp` WHERE username = :username LIMIT 1");
-      $upscore->execute(array(":score"=> $score));
-      $results = $upscore->fetch(PDO::FETCH_ASSOC);
-    }
-    catch(Exception $e){
-    echo $e->getMessage();
-    }*/
-  
-    //if(Get[UserHighScore] < score){
-    //UserHighScore = score;
-    //}
-  
-    //Makes hidden div buttons visible
-    var b = document.getElementById("AgainOrEnd");                                 
-    if (b.style.display = "none") {
-      b.style.display = "block";
-    }
+  	endGame();
+	
+        var b = document.getElementById("AgainOrEnd");                                 
+	if (b.style.display = "none") {
+		b.style.display = "block";
+	}
   }
   else {
     window.requestAnimationFrame(draw);
   }
 }
 </script>
-  
-
-  </head>
+</head>
 
 <body onload="init();">
   <main>
