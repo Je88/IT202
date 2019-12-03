@@ -167,11 +167,11 @@ function movePowerUp() {
   pupX = Math.round(Math.random() * canvas.width - pupLength);
   pupY = Math.round(Math.random() * canvas.height - pupLength);
 }
-function scoreUpdater(user){
+function scoreUpdater(){
 	$.ajax({
 	url: "scoreUpdate.php",
 	type: "POST",
-	data: {'user': user, 'score': score},
+	data: {'username': user, 'score': score},
 	success: function()
 		{
 		alert("ok");
@@ -270,10 +270,10 @@ function draw() {
   // End the game when collision with side occurs, or keep playing
   if(countdown <= 0 || ((isWithin(aiX, x, x + aiLength) || isWithin(aiX + aiLength, x, x + aiLength)) && (isWithin(aiY, y, y + aiLength) || isWithin(aiY + aiLength, y, y + aiLength)))){
   	//Updates score saved in sql to score achieved by end of game
-	//scoreUpdater(user);
+	scoreUpdater();
 	
 	endGame();
-	scoreUpdater(user);
+	//scoreUpdater();
 	//Makes Divs present
 	var b = document.getElementById("AgainOrEnd");                                 
 	if (b.style.display = "none") {

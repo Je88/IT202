@@ -11,7 +11,7 @@ try{
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $update = "Update `SignUp` SET `Score` = '$score' WHERE `Username` = '$user'";
 	$stmt = $db->prepare($update);
-	//$stmt->execute([':user'=>$user]);
+	$stmt->execute([":username"=>$user, ":score"=>$score]);
 }
 catch(Exception $e){
 		echo "DB Error: " . $e;
