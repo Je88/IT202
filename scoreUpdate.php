@@ -22,5 +22,5 @@ catch(Exception $e){
 		//$return = "Could not update Error: " . $e->getMessage();
 	}
 
-//echo json_encode($return);
+echo ("hello");
 ?>
