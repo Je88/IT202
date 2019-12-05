@@ -170,12 +170,12 @@ function movePowerUp() {
 function scoreUpdater(){
 	$.ajax({
 	url: "scoreUpdate.php",
-	type: "POST",
+	type: "post",
 	data: {'score': score},
-	success: function()
-		{
-		alert("ok");
-		}
+	//success: function()
+	//	{
+	//	alert("ok");
+	//	}
 	});
 }
 // Clear the canvas
@@ -269,6 +269,7 @@ function draw() {
   
   // End the game when collision with side occurs, or keep playing
   if(countdown <= 0 || ((isWithin(aiX, x, x + aiLength) || isWithin(aiX + aiLength, x, x + aiLength)) && (isWithin(aiY, y, y + aiLength) || isWithin(aiY + aiLength, y, y + aiLength)))){
+	scoreUpdater();
 	endGame();
 
 	//Makes Divs present
@@ -277,7 +278,7 @@ function draw() {
 	   b.style.display = "block";
 	}
 	//Updates score saved in sql to score achieved by end of game
-	scoreUpdater();
+	//scoreUpdater();
   }
   else {
     window.requestAnimationFrame(draw);
