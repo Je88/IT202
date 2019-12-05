@@ -14,7 +14,7 @@ try{
 	$stmt->bindValue(':score', $_POST['score']);
 	//$result = $stmt->execute(array($_SESSION["username"], $_POST["score"]));
 	//$result = "Updated Successfully";
-	$stmt->execute([:user=>$user, :score=>$score]);
+	$stmt->execute([":user"=>$user, ":score"=>$score]);
 	echo var_export($_SESSION);
 	echo var_export($stmt->errorInfo());
 }
