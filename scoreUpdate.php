@@ -8,14 +8,15 @@ try{
 	$score = $_POST['score'];
 	$db = new PDO($conn_string, $username, $password);
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $update = "Update `SignUp` SET `Score` = ':score' WHERE `Username` = ':user'";
+        $update = "Update `SignUp` SET `Score` = :score WHERE `Username` = :user";
 	$stmt = $db->prepare($update);
-	$stmt->bindParam(':username', $_SESSION['username']);
-	$stmt->bindParam(':score', $_POST['score']);
+	$stmt->bindValue(':user', $_SESSION['username']);
+	$stmt->bindValue(':score', $_POST['score']);
 	//$result = $stmt->execute(array($_SESSION["username"], $_POST["score"]));
 	//$result = "Updated Successfully";
-	$stmt->execute([":user"=>$user, ":score"=>$score]);
-	
+	$stmt->execute();//[":user"=>$user, ":score"=>$score]);
+	echo var_export($_SESSION);
+	echo var_export($stmt->errorInfo());
 }
 catch(Exception $e){
 		echo "DB Error: " . $e;
