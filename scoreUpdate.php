@@ -8,7 +8,7 @@ $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 		$score = $_POST['score'];
 		$db = new PDO($conn_string, $username, $password);
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	        $update = ("Update `SignUp` SET `Score` = :score WHERE `Username` = :user) AND (SELECT `Score` FROM `SignUp` WHERE `Username = :user`)> :score)";
+	        $update = "UPDATE `SignUp` SET `Score` = :score WHERE `Username` = :user AND `Score` > :score";
 		$stmt = $db->prepare($update);
 		$stmt->bindValue(':user', $_SESSION['username']);
 		$stmt->bindValue(':score', $_POST['score']);
@@ -21,5 +21,4 @@ $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 		//$return = "Could not update Error: " . $e->getMessage();
 	}
 	echo ("hello");
-}
 ?>
