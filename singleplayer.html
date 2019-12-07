@@ -151,13 +151,15 @@ function startGame() {
 
 // Show the game over screen
 function endGame() {
+  
   // Display the final score
   erase();
   context.fillStyle = '#000000';
   context.font = '24px Arial';
   context.textAlign = 'center';
   context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 6);
-   
+  //Show highscore table
+  scoreChart(); 
 }
 // Move the target square to a random position
 function moveTarget() {
@@ -176,10 +178,20 @@ function scoreUpdater(){
 	data: {'score': score},
 	success: function(data)
 		{
-		console.log("ok");
+		console.log("Did Update");
 		}
 	});
-	console.log("Hey");
+	console.log("Updater Ran");
+}
+function scoreChart(){
+	$.ajax({
+	url:"top7chart.php",
+	success: function(data)
+	{
+	console.log("ScoresUP");
+	}
+	});
+	console.log("Atleast Ran");
 }
 // Clear the canvas
 function erase() {
