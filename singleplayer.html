@@ -154,12 +154,13 @@ function endGame() {
   
   // Display the final score
   erase();
+  scoreChart();
   context.fillStyle = '#000000';
   context.font = '24px Arial';
   context.textAlign = 'center';
   context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 6);
   //Show highscore table
-  scoreChart(); 
+  //scoreChart(); 
 }
 // Move the target square to a random position
 function moveTarget() {
@@ -185,10 +186,10 @@ function scoreUpdater(){
 }
 function scoreChart(){
 	$.ajax({
-	type: "GET",
 	url:"Top7Chat.php",
 	success: function(data)
 	{
+	document.body.appendChild(data);
 	console.log("ScoresUP");
 	}
 	});

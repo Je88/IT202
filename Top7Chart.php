@@ -19,7 +19,7 @@ $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 	}
 <table>
 <?php foreach($r as $index=> $row): ?>
-<tr><td><?php echo $row["Username"];?> </td>...</tr>
+<tr><td><?php echo $row["Username","Score"];?> </td>...</tr>
 <?php endforeach; ?>
 </table>
 ?>
