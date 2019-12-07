@@ -13,14 +13,13 @@ $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 		
 		//echo var_export($_SESSION);
 		//echo var_export($stmt->errorInfo());
-		//$stmt->execute(WHAT AM I EVEN EXECUTING?);
 	}
 	catch(Exception $e){
 		echo "DB Error: " . $e;
 	}
 <table>
 <?php foreach($r as $index=> $row): ?>
-<tr><td><?php echo $row["columnOne"];?> </td>...</tr>
+<tr><td><?php echo $row["Username"];?> </td>...</tr>
 <?php endforeach; ?>
 </table>
 ?>
