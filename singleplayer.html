@@ -187,8 +187,6 @@ function scoreUpdater(){
 function scoreChart(){
 	$.ajax({
 	url:"Top7Chat.php",
-	type:"GET",	
-	data:{},
 	success: function(data)
 	{
 	document.body.appendChild(data);
