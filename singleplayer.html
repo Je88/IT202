@@ -150,8 +150,7 @@ function startGame() {
 
 
 // Show the game over screen
-function endGame() {
-  
+function endGame() {  
   // Display the final score
   erase();
   scoreChart();
@@ -159,8 +158,6 @@ function endGame() {
   context.font = '24px Arial';
   context.textAlign = 'center';
   context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 6);
-  //Show highscore table
-  //scoreChart(); 
 }
 // Move the target square to a random position
 function moveTarget() {
