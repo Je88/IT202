@@ -18,10 +18,13 @@ $conn_string = "mysql:host=$host;dbname=$database;charset=utf8mb4";
 	catch(Exception $e){
 		echo "DB Error: " . $e;
 	}
+//echo ("Hey");
+?>
 <table>
 <?php foreach($r as $index=> $row): ?>
-<tr><td><?php echo $row["Username", "Score"];?> </td>...</tr>
+<tr><td><?php echo $row["Username"];?>
+<?php echo("             ")?>
+<?php echo $row["Score"];?> 
 <?php endforeach; ?>
 </table>
-echo ("Hey");
-?>
+

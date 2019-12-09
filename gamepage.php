@@ -1,7 +1,18 @@
 <?php
 session_start();
 include 'classes.php';
+
 ?>
+<script>
+function delete() {
+	if(confirm("Are you sure? We'd hate to see you go."))
+	{
+		// redirect to page with code to delete	
+		window.location.replace("delete.php");
+	}
+}
+</script>
+
 
 <!DOCTYPE html>
 <head>
@@ -18,7 +29,8 @@ include 'classes.php';
 	<br>
 	<a href="multiplayer.html" class ="button">Multi-Player</a>
 	<br>
-	<a href="Scoreboard.php" class ="button">High Scores</a>
+	//<a href="" class ="button">High Scores</a>
+	<button onclick="delete();" class ="button">Delete Account</button>
 	<br>
 	<a href="logout.php" class ="button">Log Out</a>
 	<br>
