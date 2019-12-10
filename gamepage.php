@@ -4,7 +4,7 @@ include 'classes.php';
 
 ?>
 <script>
-function delete() {
+function delete_acc() {
 	if(confirm("Are you sure? We'd hate to see you go."))
 	{
 		// redirect to page with code to delete	
@@ -29,9 +29,10 @@ function delete() {
 	<br>
 	<a href="multiplayer.html" class ="button">Multi-Player</a>
 	<br>
-	//<a href="" class ="button">High Scores</a>
-	<button onclick="delete();" class ="button">Delete Account</button>
-	<br>
+	<?php if($_SESSION['username'] != "Admin"): ?>
+		<button onclick="delete_acc();" class ="button">Delete Account</button>
+		<br>
+	<?php endif; ?>
 	<a href="logout.php" class ="button">Log Out</a>
 	<br>
 	<?php if($_SESSION['username'] != "Admin"): ?>

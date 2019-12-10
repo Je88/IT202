@@ -53,16 +53,22 @@ var down = false;
 var up = false;
 var right = false;
 var left = false;
-// Properties for the target circle
-var targetX = 0;
-var targetY = 0;
+// Properties for the target1
+var target1X = 0;
+var target1Y = 0;
 var targetLength = 5;
+// Properties for the target2
+var target2X = 0;
+var target2Y = 0;
+// Properties for the target3
+var target3X = 0;
+var target3Y = 0;
 // PROPERTIES FOR POWER UP
 var pupX = 0;
 var pupY = 0;
 var pupLength = 20;
 //CountdownTimer
-var countdown = 90;
+var countdown = 45;
 var countup = 0;
 
 // ID to track the setTimeout
@@ -128,7 +134,9 @@ function startGame() {
   // Stop listening for click events
   window.removeEventListener('click', startGame);
   // Put the Target.Powerup at a random starting point
-	moveTarget();
+	moveTarget1();
+	moveTarget2();
+	moveTarget3();
         movePowerUp();
   // Kick off the draw loop
   draw();
@@ -160,9 +168,17 @@ function endGame() {
   context.fillText('Final Score: ' + score, canvas.width / 2, canvas.height / 6);
 }
 // Move the target square to a random position
-function moveTarget() {
-  targetX = Math.round(Math.random() * canvas.width - targetLength);
-  targetY = Math.round(Math.random() * canvas.height - targetLength);
+function moveTarget1() {
+  target1X = Math.round(Math.random() * canvas.width - targetLength);
+  target1Y = Math.round(Math.random() * canvas.height - targetLength);
+}
+function moveTarget2() {
+  target2X = Math.round(Math.random() * canvas.width - targetLength);
+  target2Y = Math.round(Math.random() * canvas.height - targetLength);
+}
+function moveTarget3() {
+  target3X = Math.round(Math.random() * canvas.width - targetLength);
+  target3Y = Math.round(Math.random() * canvas.height - targetLength);
 }
 // MOVE POWERUP 
 function movePowerUp() {
@@ -183,13 +199,16 @@ function scoreUpdater(){
 }
 function scoreChart(){
 	$.ajax({
-	url:"Top7Chat.php",
+	url:"Top7Chart.php",
 	success: function(data)
 	{
-	document.body.appendChild(data);
+	var div = document.createElement("div");
+	div.innerHTML = data;
+	document.body.appendChild(div);
 	console.log("ScoresUP");
 	}
 	});
+	console.log(data);
 	console.log("Atleast Ran");
 }
 // Clear the canvas
@@ -241,11 +260,29 @@ function draw() {
 		  aiY -= 1;
 	  }
   }
-  // Collide with the target
-  if (isWithin(targetX, x, x + sideLength) || isWithin(targetX + targetLength, x, x + sideLength)) { // X
-    if (isWithin(targetY, y, y + sideLength) || isWithin(targetY + targetLength, y, y + sideLength)) { // Y
+  // Collide with the target1
+  if (isWithin(target1X, x, x + sideLength) || isWithin(target1X + targetLength, x, x + sideLength)) { // X
+    if (isWithin(target1Y, y, y + sideLength) || isWithin(target1Y + targetLength, y, y + sideLength)) { // Y
       // Respawn the target
-      moveTarget();
+	moveTarget1();
+      // Increase the score
+      score++;
+    }
+  }
+  // Collide with the target1
+  if (isWithin(target2X, x, x + sideLength) || isWithin(target2X + targetLength, x, x + sideLength)) { // X
+    if (isWithin(target2Y, y, y + sideLength) || isWithin(target2Y + targetLength, y, y + sideLength)) { // Y
+      // Respawn the target
+        moveTarget2();
+      // Increase the score
+      score++;
+    }
+  }
+  // Collide with the target1
+  if (isWithin(target3X, x, x + sideLength) || isWithin(target3X + targetLength, x, x + sideLength)) { // X
+    if (isWithin(target3Y, y, y + sideLength) || isWithin(target3Y + targetLength, y, y + sideLength)) { // Y
+      // Respawn the target
+        moveTarget3();
       // Increase the score
       score++;
     }
@@ -264,11 +301,25 @@ function draw() {
   //Draw AI
   context.fillStyle = '#000000';
   context.fillRect(aiX, aiY, aiLength, aiLength);
-  // Draw the target - Blue Points
+  // Draw target1 - Blue Points
+  context.fillStyle = '#00FF00';
+  var radius1 = 10;
+  context.beginPath();
+  context.arc(target1X, target1Y, radius1, 0, 2 * Math.PI);
+  context.closePath();
+  context.fill();
+  // Draw target2 - Blue Points
+  context.fillStyle = '#00FF00';
+  var radius2 = 10;
+  context.beginPath();
+  context.arc(target2X, target2Y, radius2, 0, 2 * Math.PI);
+  context.closePath();
+  context.fill();
+  // Draw target3 - Blue Points
   context.fillStyle = '#00FF00';
   var radius = 10;
   context.beginPath();
-  context.arc(targetX, targetY, radius, 0, 2 * Math.PI);
+  context.arc(target3X, target3Y, radius1, 0, 2 * Math.PI);
   context.closePath();
   context.fill();
   // DRAW POWER-UP
