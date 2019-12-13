@@ -27,7 +27,7 @@ function delete_acc() {
 
 	<a href="singleplayer.html" class ="button">Single Player</a>
 	<br>
-	<a href="multiplayer.html" class ="button">Multi-Player</a>
+	<a button onclick="myFunction()" class ="button" >Multi-Player</a>
 	<br>
 	<?php if($_SESSION['username'] != "Admin"): ?>
 		<button onclick="delete_acc();" class ="button">Delete Account</button>
@@ -39,9 +39,17 @@ function delete_acc() {
 		<a href="#" class ="button">KnOt4urIs</a>
 		<br>	
 	<?php else: ?>	
-		<a href="accounts.php" class ="button">Accounts & Scores</a>
+		<a button onclick="myFunction2()" class ="button">Accounts & Scores</a>
 		<br>
 	<?php endif; ?>
 	</div>
+<script>
+function myFunction() {
+  alert("!!!!UNDER CONSTRUCTION!!!!");
+}
+function myFunction2() {
+  alert("Was supposed to show all accounts and have option to delete them didnt get to it");
+}
+</script>
 </body>
 </html>
